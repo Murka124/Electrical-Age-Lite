@@ -2,6 +2,9 @@
     "id": "electrical_age_lite",
     "title": "Electrical Age: Lite",
     "version": "0.1",
-    "creator": "Murka124, wampal",
-    "description": "Контент-пак, добавляющий всякие электрические штуки в мир Voxel Core"
+    "creator": "Murka124, Wampal, KotIsOff",
+    "description": "Контент-пак, добавляющий всякие электрические штуки в мир Voxel Core",
+	"dependencies": [
+		"explode_lib"
+	]
 }
