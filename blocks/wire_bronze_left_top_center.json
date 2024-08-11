@@ -1,0 +1,47 @@
+{
+  "light-passing": true,
+  "model": "custom",
+  "model-primitives": {
+    "aabbs": [
+      [
+        0,
+        0.45,
+        0.45,
+        0.45,
+        0.1,
+        0.1,
+        "wire_bronze"
+      ],
+      [
+        0.45,
+        0.55,
+        0.45,
+        0.1,
+        0.45,
+        0.1,
+        "wire_bronze"
+      ],
+      [
+        0.42,
+        0.42,
+        0.42,
+        0.16,
+        0.16,
+        0.16,
+        "wire_bronze"
+      ],
+      [
+        0.42,
+        0.42,
+        0.42,
+        0.16,
+        0.16,
+        0.16,
+        "wire_bronze"
+      ]
+    ]
+  },
+  "hidden": true,
+  "picking-item": "electrical_age_lite:wire_bronze",
+  "script-name": "wire_logic"
+}

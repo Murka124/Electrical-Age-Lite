@@ -11,13 +11,12 @@ const sides = {
 };
 
 /**
- * @param { string[] } texture texture name from textures/
+ * @param { string[] } textures texture names from textures/
  */
 const generateStates = (textures) => {
   const generated = []; // Array<Array<string | number[]>>
 
   const _sides = structuredClone(Object.entries(sides));
-  _sides.map((v) => v[1].push(...textures));
 
   // генерируем каждый вариант состояния блока
   for (let i = 0; i < Math.pow(2, 6); i++) {
@@ -25,89 +24,65 @@ const generateStates = (textures) => {
     for (let j = 0; j < 6; j++) {
       currentState[Number(j)] = (i & (1 << j)) > 0;
     }
+    // Ебанина выше генерирует массив из 6 булевых переменных
 
     const state = currentState
-      .map((bool, index) => bool && _sides[index])
+      .map(
+        (bool, index) =>
+          bool && [_sides[index][0], [..._sides[index][1], ...textures]]
+      )
       .filter((v) => !!v);
+    state.push(["center", [...sides.center, ...textures]]); // До кучи в конец кидаем центр, потому что везде сука должен быть центр.
+    // Эта штука преобразует булевый массив в массив из сторон
 
     generated.push(state);
+    // И мы потом просто выкидываем стейт в выходной массив
   }
   return generated;
 };
-
-let blocknamesuka
-
-/**
- *
- * @param {string} blockname
- * @param {string[] | undefined} data states
- */
-const getBlockName = (blockname, data) =>
-  blockname + (data ? "_" + data.join("_") : "") + ".json";
 
 /**
  * @param {string} blockname
  * @param {[string, number[]][][]} generated from generateStates()
  */
-const writeModels = function (modid, blockname, generated, textures) {
-  const masterBlock = new wireTemplate();
-
-  const center = structuredClone(sides.center);
-  center.push(...textures);
-  masterBlock["model-primitives"].aabbs = [center];
-
+const writeModels = function (modid, blockname, generated) {
   const blockPath = `../${blockname}`;
 
   if (!fs.existsSync(blockPath)) fs.mkdirSync(blockPath, { recursive: true });
-  fs.writeFileSync(
-    `../${blockname}.json`,
-    JSON.stringify(masterBlock, null, 2)
-  );
 
-  generated
-    .filter((v) => v.length)
-    .forEach(async (data) => {
-      const block = new wireTemplate();
-      block["model-primitives"].aabbs = data.map((v) => v[1]);
+  generated.forEach(async (data) => {
+    const block = new wireTemplate(modid + ":" + blockname);
+    block["model-primitives"].aabbs = data.map((v) => v[1]);
 
-      const name = getBlockName(
-        blockname,
-        data.filter((v) => v[0]).map((v) => v[0])
-      );
-      block["picking-item"] = "electrical_age_lite:"+blockname;
-      block["script-name"] = "wire_logic";
-      // let block_material
-      // if (blockname == "tin_wire") block_material = "tin"
-      // if (blockname == "copper_wire") block_material = "copper"
-      if (name == blockname) {
-        name+="_center"
-      } else {
-        block["model-primitives"].aabbs.push([0.42, 0.42, 0.42, 0.16, 0.16, 0.16, blockname])
-      }
-      //console.log(blockPath)
+    const sideData = data.filter((v) => v[0]).map((v) => v[0]);
+    const name =
+      blockname + (sideData ? "_" + sideData.join("_") : "") + ".json";
 
-      fs.writeFileSync(`../${name}`, JSON.stringify(block, null, 2));
-    });
+    block["model-primitives"].aabbs.push([...sides.center, blockname]);
+
+    fs.writeFileSync(`../${name}`, JSON.stringify(block, null, 2));
+  });
 };
 
 const wireTemplate = class {
-  constructor() {
+  /** @param {string} picking blockId */
+  constructor(picking) {
     this["light-passing"] = true;
     this.model = "custom";
     this["model-primitives"] = {
-      aabbs: [
-        [0.42, 0.42, 0.42, 0.16, 0.16, 0.16] // center
-      ]
+      aabbs: []
     };
+
     this.hidden = true;
-    //this["picking-item"] = "electrical_age_lite:";
+    this["picking-item"] = picking;
+
+    this["script-name"] = "wire_logic";
   }
 };
 
 module.exports = {
   sides,
   generateStates,
-  getBlockName,
   writeModels,
   wireTemplate
 };

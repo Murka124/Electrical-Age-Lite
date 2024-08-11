@@ -1,7 +1,7 @@
 const wire_generator = require("./wire_generator");
 
 const modid = require("../../package.json").id;
-//const modid = "electrical_age_lite"
+const constants = require("../../modules/constants.json");
 
 const generators = [];
 const generate = () => generators.forEach((v) => v.build());
@@ -21,7 +21,11 @@ class Generator {
   }
 }
 
-new Generator("wire_tin", ["wire_tin"]);
-new Generator("wire_copper", ["wire_copper"]);
+const wires = Object.keys(constants.wires);
+const materials = constants.wire_materials;
+
+wires.forEach((name, index) => {
+  new Generator("wire_" + name, ["wire_" + materials[index]]); // name = "copper", then "wire_"+name; material = "copper", then "wire_"+material
+});
 
 generate();
