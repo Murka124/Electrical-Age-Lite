@@ -31,17 +31,14 @@ function wire_update(x, y, z)
 		--нашли материал, теперь new_block принимает вид "electrical_age_lite:wire_%материал%"
 	end
 
-	local connected = false --переменная-держатель состояния подключенности, нужна для правильного конструирования одиночного провода
-	--пошла лесенка из проверок. здесь провод проверяет, можно ли подключиться к соседним блокам
-	if is_block_connectable(x-1, y, z) then new_block = new_block.."_left" connected = true end
-	if is_block_connectable(x+1, y, z) then new_block = new_block.."_right" connected = true end
-	if is_block_connectable(x, y-1, z) then new_block = new_block.."_bottom" connected = true end
-	if is_block_connectable(x, y+1, z) then new_block = new_block.."_top" connected = true end
-	if is_block_connectable(x, y, z-1) then new_block = new_block.."_back" connected = true end
-	if is_block_connectable(x, y, z+1) then new_block = new_block.."_front" connected = true end
-	--вот и пригодилась наша переменная-держатель. если подключаемых блоков вокруг не обнаружено, добавляем префикс "_center"
-	--(потому что "wire_%материал%" занят предметом)
-	if connected == false then new_block = new_block.."_center" end
+	if is_block_connectable(x-1, y, z) then new_block = new_block.."_left" end
+	if is_block_connectable(x+1, y, z) then new_block = new_block.."_right" end
+	if is_block_connectable(x, y-1, z) then new_block = new_block.."_bottom" end
+	if is_block_connectable(x, y+1, z) then new_block = new_block.."_top" end
+	if is_block_connectable(x, y, z-1) then new_block = new_block.."_back" end
+	if is_block_connectable(x, y, z+1) then new_block = new_block.."_front" end
+	--добавляем в конец "_center"
+	new_block = new_block.."_center"
 
 	--если заново сконструированное имя блока не совпадает, обновляем текущий блок
 	if new_block ~= blockname then

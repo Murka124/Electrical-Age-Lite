@@ -130,6 +130,8 @@
     "wire_tin_top_back",
     "wire_tin_top_back_front",
     "wire_tin_top_front",
+    "wire_bronze_center",
+    "wire_iron_center",
     "wire_bronze_back_center",
     "wire_bronze_back_front_center",
     "wire_bronze_bottom_back_center",
@@ -140,7 +142,6 @@
     "wire_bronze_bottom_top_back_front_center",
     "wire_bronze_bottom_top_center",
     "wire_bronze_bottom_top_front_center",
-    "wire_bronze_center",
     "wire_bronze_front_center",
     "wire_bronze_left_back_center",
     "wire_bronze_left_back_front_center",
@@ -267,7 +268,6 @@
     "wire_iron_bottom_top_back_front_center",
     "wire_iron_bottom_top_center",
     "wire_iron_bottom_top_front_center",
-    "wire_iron_center",
     "wire_iron_front_center",
     "wire_iron_left_back_center",
     "wire_iron_left_back_front_center",
@@ -383,7 +383,9 @@
     "wire_tin_top_back_center",
     "wire_tin_top_back_front_center",
     "wire_tin_top_center",
-    "wire_tin_top_front_center"
+    "wire_tin_top_front_center",
+    "block_bronze",
+    "block_iron"
   ],
   "items": [
     "wire_copper",
