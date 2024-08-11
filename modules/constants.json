@@ -1,14 +1,14 @@
 {
   "wire_connectables": ["wire", "machine", "generator"],
-  "wire_materials": ["tin", "copper", "bronze", "iron"],
+  "wire_materials": ["tin", "copper", "bronze", "iron", "creative"],
   "generators": {
     "hydro": {
       "energy_bank": 0,
       "energy_produce": [4, 16],
       "turbine_radius": [3, 4],
       "turbines": [
-        "electrical_age_lite:wooden_hydroturbine",
-        "electrical_age_lite:iron_hydroturbine"
+        "electrical_age_lite:turbine_hydro_wood",
+        "electrical_age_lite:turbine_hydro_iron"
       ]
     },
     "solar": {
@@ -32,8 +32,8 @@
       "energy_produce": [4, 16],
       "turbine_radius": [2, 3],
       "turbines": [
-        "electrical_age_lite:wooden_turbine",
-        "electrical_age_lite:iron_turbine"
+        "electrical_age_lite:turbine_wind_wood",
+        "electrical_age_lite:turbine_wind_iron"
       ]
     }
   },
@@ -79,6 +79,10 @@
     "iron": {
       "losses": 0.5,
       "max_voltage": 1024
+    },
+    "creative": {
+      "losses": 0,
+      "max_voltage": 0
     }
   }
 }

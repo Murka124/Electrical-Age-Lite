@@ -23,7 +23,6 @@ class Generator {
 
 const wires = Object.keys(constants.wires);
 const materials = constants.wire_materials;
-
 wires.forEach((name, index) => {
   new Generator("wire_" + name, ["wire_" + materials[index]]); // name = "copper", then "wire_"+name; material = "copper", then "wire_"+material
 });
