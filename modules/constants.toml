@@ -1,0 +1,63 @@
+wire_connectables = ["wire", "machine", "generator"]
+
+
+[wires]
+[wires.tin]
+max_voltage = 32
+losses = 1
+
+[wires.copper]
+max_voltage = 64
+losses = 1
+
+
+[machines]
+[machines.crusher]
+work_voltage = 64
+max_voltage = 64
+energy_bank = 1000
+process_time = 140
+
+[machines.extruder]
+work_voltage = 128
+max_voltage = 128
+energy_bank = 5000
+process_time = 200
+
+[machines.extractor]
+work_voltage = 32
+max_voltage = 32
+energy_bank = 1000
+process_time = 100
+
+[machines.oven]
+work_voltage = 32
+max_voltage = 32
+energy_bank = 1000
+process_time = 140
+
+
+[generators]
+[generators.solar]
+energy_produce = 1
+energy_bank = 0
+
+[generators.thermo]
+consumes = ["base:planks", "base:wood", "base:leaves", "base:grass", "base:flower"]
+consume_time = [80, 320, 40, 20, 20]
+energy_produce = 4
+energy_bank = 1000
+
+[generators.hydro]
+turbines = ["electrical_age_lite:wooden_hydroturbine", "electrical_age_lite:iron_hydroturbine"]
+turbine_radius = [3, 4]
+energy_produce = [4, 16]
+energy_bank = 0
+
+[generators.wind]
+turbines = ["electrical_age_lite:wooden_turbine", "electrical_age_lite:iron_turbine"]
+turbine_radius = [2, 3]
+energy_produce = [4, 16]
+energy_bank = 0
+
+

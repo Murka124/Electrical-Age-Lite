@@ -21,7 +21,7 @@ class Generator {
   }
 }
 
-new Generator("tin_wire", ["tin_wire"]);
-new Generator("copper_wire", ["copper_wire"]);
+new Generator("wire_tin", ["wire_tin"]);
+new Generator("wire_copper", ["wire_copper"]);
 
 generate();

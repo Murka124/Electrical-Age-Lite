@@ -1,0 +1,71 @@
+{
+  "wire_connectables": [
+    "wire",
+    "machine",
+    "generator"
+  ],
+  "wire_materials": [
+    "tin",
+    "copper"
+  ],
+  "generators": {
+    "hydro": {
+      "energy_bank": 0,
+      "energy_produce": [4,16],
+      "turbine_radius": [3,4],
+      "turbines": ["electrical_age_lite:wooden_hydroturbine","electrical_age_lite:iron_hydroturbine"]
+    },
+    "solar": {
+      "energy_bank": 0,
+      "energy_produce": 1
+    },
+    "thermo": {
+      "consume_time": [80,320,40,20,20],
+      "consumes": ["base:planks","base:wood","base:leaves","base:grass","base:flower"],
+      "energy_bank": 1000,
+      "energy_produce": 4
+    },
+    "wind": {
+      "energy_bank": 0,
+      "energy_produce": [4,16],
+      "turbine_radius": [2,3],
+      "turbines": ["electrical_age_lite:wooden_turbine","electrical_age_lite:iron_turbine"]
+    }
+  },
+  "machines": {
+    "crusher": {
+      "energy_bank": 1000,
+      "max_voltage": 64,
+      "process_time": 140,
+      "work_voltage": 64
+    },
+    "extractor": {
+      "energy_bank": 1000,
+      "max_voltage": 32,
+      "process_time": 100,
+      "work_voltage": 32
+    },
+    "extruder": {
+      "energy_bank": 5000,
+      "max_voltage": 128,
+      "process_time": 200,
+      "work_voltage": 128
+    },
+    "oven": {
+      "energy_bank": 1000,
+      "max_voltage": 32,
+      "process_time": 140,
+      "work_voltage": 32
+    }
+  },
+  "wires": {
+    "copper": {
+      "losses": 1,
+      "max_voltage": 64
+    },
+    "tin": {
+      "losses": 1,
+      "max_voltage": 32
+    }
+  }
+}

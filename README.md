@@ -8,6 +8,6 @@
 Найти эти библиотеки можно в дискорд-сервере `Разработка с MihailRis`.
 
 ## Участники
-- [Murka124](https://github.com/Murka124/)
+- [Murka124](https://github.com/Murka124)
 - [Wampal](https://github.com/wampal)
 - [KotIsOff](https://github.com/kotisoff)

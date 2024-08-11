@@ -1,0 +1,47 @@
+{
+  "light-passing": true,
+  "model": "custom",
+  "model-primitives": {
+    "aabbs": [
+      [
+        0.45,
+        0,
+        0.45,
+        0.1,
+        0.45,
+        0.1,
+        "wire_tin"
+      ],
+      [
+        0.45,
+        0.45,
+        0,
+        0.1,
+        0.1,
+        0.45,
+        "wire_tin"
+      ],
+      [
+        0.45,
+        0.45,
+        0.55,
+        0.1,
+        0.1,
+        0.45,
+        "wire_tin"
+      ],
+      [
+        0.42,
+        0.42,
+        0.42,
+        0.16,
+        0.16,
+        0.16,
+        "wire_tin"
+      ]
+    ]
+  },
+  "hidden": true,
+  "picking-item": "electrical_age_lite:wire_tin",
+  "script-name": "wire_logic"
+}
