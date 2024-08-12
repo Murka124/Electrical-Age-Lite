@@ -12,17 +12,19 @@
       ]
     },
     "solar": {
-      "energy_bank": 0,
+      "energy_bank": 1,
       "energy_produce": 1
     },
     "thermo": {
-      "consume_time": [80, 320, 40, 20, 20],
-      "consumes": [
-        "base:planks",
-        "base:wood",
-        "base:leaves",
-        "base:grass",
-        "base:flower"
+      "consume_time": [80, 320, 40, 20, 20, 40, 80],
+      "consumables": [
+        "base:planks.item",
+        "base:wood.item",
+        "base:leaves.item",
+        "base:grass.item",
+        "base:flower.item",
+        "base:pane.item",
+        "base:wooden_door.item"
       ],
       "energy_bank": 1000,
       "energy_produce": 4
@@ -42,25 +44,36 @@
       "energy_bank": 1000,
       "max_voltage": 64,
       "process_time": 140,
-      "work_voltage": 64
+      "work_voltage": 64,
+      "explode_strength": 2
     },
     "extractor": {
       "energy_bank": 1000,
       "max_voltage": 32,
       "process_time": 100,
-      "work_voltage": 32
+      "work_voltage": 32,
+      "explode_strength": 1
     },
     "extruder": {
       "energy_bank": 5000,
       "max_voltage": 128,
       "process_time": 200,
-      "work_voltage": 128
+      "work_voltage": 128,
+      "explode_strength": 3
     },
     "oven": {
       "energy_bank": 1000,
       "max_voltage": 32,
       "process_time": 140,
-      "work_voltage": 32
+      "work_voltage": 32,
+      "explode_strength": 1
+    },
+    "light": {
+      "energy_bank": 4,
+      "max_voltage": 32,
+      "process_time": 0,
+      "work_voltage": 1,
+      "explode_strength": 1
     }
   },
   "wires": {
@@ -82,7 +95,33 @@
     },
     "creative": {
       "losses": 0,
-      "max_voltage": 0
+      "max_voltage": -1
+    }
+  },
+  "data_patterns": {
+    "generator_thermo": {
+      "energy_bank_max_value": 1000,
+      "energy_bank_value": 0,
+      "max_process_time": 200,
+      "current_process_time": 0,
+      "energy_bar_max_value": 186,
+      "process_bar_max_value": 44,
+      "energy_generation": 4
+    },
+    "wire": {
+      "energy_transfered": 0,
+      "max_voltage": 32,
+      "losses": 1
+    },
+    "machine": {
+      "energy_bank_max_value": 500,
+      "energy_bank_value": 0,
+      "max_voltage": 32,
+      "consumed_voltage": 0,
+      "work_voltage": 1,
+      "explode_strength": 1,
+      "max_process_time": 200,
+      "current_process_time": 0
     }
   }
 }

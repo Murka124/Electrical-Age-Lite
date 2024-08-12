@@ -1,0 +1,18 @@
+{
+	"texture-faces": [
+		"machine_case",
+		"machine_case",
+		"machine_case",
+		"machine_case",
+		"machine_case",
+		"generator_thermo_active"
+	],
+	"rotation": "pane",
+	"inventory-size": 1,
+	"script-name": "generator_logic",
+	"hidden": true,
+	"picking-item": "electrical_age_lite:generator_thermo.item",
+	"emission": [6, 5, 5],
+	"shadeless": false,
+	"ui-layout": "electrical_age_lite:generator_thermo"
+}

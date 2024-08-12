@@ -451,7 +451,13 @@
     "wire_creative_top_back_center",
     "wire_creative_top_back_front_center",
     "wire_creative_top_center",
-    "wire_creative_top_front_center"
+    "wire_creative_top_front_center",
+    "generator_thermo",
+    "generator_hydro",
+    "generator_wind",
+    "generator_thermo_active",
+    "machine_light",
+    "machine_light_active"
   ],
   "items": [
     "wire_copper",

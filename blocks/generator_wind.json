@@ -3,9 +3,11 @@
 		"machine_case",
 		"machine_case",
 		"machine_case",
-		"generator_solar",
 		"machine_case",
-		"machine_case"
+		"machine_case",
+		"generator_kinetic"
 	],
+	"rotation": "pane",
+	"inventory-size": 1,
 	"script-name": "generator_logic"
 }

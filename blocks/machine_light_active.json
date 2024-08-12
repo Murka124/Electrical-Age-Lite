@@ -1,0 +1,14 @@
+{
+	"texture-faces": [
+		"machine_light",
+		"machine_light",
+		"machine_light",
+		"machine_light",
+		"machine_light",
+		"machine_light"
+	],
+	"script-name": "machine_logic",
+	"emission": [12, 12, 12],
+	"hidden": true,
+	"picking-item": "electrical_age_lite:machine_light.item"
+}

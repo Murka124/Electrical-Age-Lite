@@ -1,17 +1,34 @@
 local eal_constants = require("electrical_age_lite:constants")
 local string_extensions = require("electrical_age_lite:string_extensions")
 
+-- константы
+local connectables = get_constants().wire_connectables --список подключаемых блоков
+local materials = get_constants().wire_materials --список материалов для провода
+local wires = get_constants().wires --список материалов для провода
+
 function on_placed(x, y, z, playerid)
 	wire_update(x, y, z)
+	local block_name = block.name(block.get(x,y,z))
+    set_block(x, y, z, block_name)
+    set_block_data_pattern(x, y, z, "wire")
+	local data = get_block_data(x, y, z)
+	for k, v in pairs(wires) do
+		if block_name:startsWith("electrical_age_lite:wire_"..k) then
+			data.max_voltage = v.max_voltage
+			data.losses = v.losses
+			break
+		end
+	end
 end
 
 function on_update(x, y, z)
 	wire_update(x, y, z)
 end
 
--- константы
-local connectables = get_constants().wire_connectables --список подключаемых блоков
-local materials = get_constants().wire_materials --список материалов для провода
+function on_broken(x, y, z)
+    clear_block(x,y,z)
+end
+
 
 function wire_update(x, y, z)
 	-- функция для проверки 

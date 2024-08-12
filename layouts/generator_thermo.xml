@@ -1,0 +1,15 @@
+<inventory size="524,200" color="#111111">
+    <label color="#aeaeae" gravity="top-center" margin="0,4,0,4">Тепловой генератор</label>
+    <container pos="5,5" size="40,190" color="#202020" tooltip="Текущая ёмкость банка энергии" tooltip-delay="0" id="energy_back">
+        <container gravity="bottom-center" margin = "2,2,2,2" size="36,186" color="#a04040" tooltip="Текущая ёмкость банка энергии" tooltip-delay="0"/>
+        <container gravity="top-center" size="40,190" margin = "2,2,2,2" color="#202020" tooltip="Текущая ёмкость банка энергии" tooltip-delay="0" id="energy_bar"/>
+    </container>
+    
+    <label gravity="bottom-left" margin="52,0,0,4" color="#aeaeae" id="energy_text">0/0 vce</label>
+    
+    <slot index="0" gravity="center-center"/>
+    <container pos="238,126" size="48,10" color="#202020" tooltip="Оставшееся время сгорания топлива" tooltip-delay="0" id="process_back">
+        <container gravity="center-left" margin = "2,2,2,2" size="0,6" color="#a04040" id="process_bar" tooltip="Оставшееся время сгорания топлива" tooltip-delay="0" visible="false"/>
+    </container>
+    <label color="#aeaeae" id="process_text" gravity="top-center" margin="0,140,0,0" pos="100,100">0 сек</label>
+</inventory>
