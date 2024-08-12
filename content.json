@@ -464,7 +464,16 @@
     "wire_tin",
     "wire_bronze",
     "wire_iron",
-    "wire_creative"
+    "wire_creative",
+    "turbine_hydro_iron",
+    "turbine_hydro_nanofiber",
+    "turbine_hydro_wood",
+    "ingot_bronze",
+    "ingot_copper",
+    "ingot_iron",
+    "ingot_tin"
   ],
-  "entities": []
+  "entities": [
+    "turbine_hydro"
+  ]
 }

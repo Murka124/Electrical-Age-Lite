@@ -54,6 +54,23 @@ function update_generator(x, y, z)
                 set_block_whole_data(x, y, z, data)
             end
         end
+    elseif name:startsWith("electrical_age_lite:generator_hydro") then
+        local data = get_block_data(x, y, z);
+        local invid = inventory.get_block(x, y, z);
+        local inv_item, inv_val = inventory.get(invid, 0);
+
+        local turbines = get_constants().generators.hydro.turbines
+        local energy_produce = get_constants().generators.hydro.energy_produce
+
+        for k, v in pairs(turbines) do
+            if item.name(inv_item) == v then
+                data.energy_generation = energy_produce[k]
+                if data.energy_bank_max_value - data.energy_bank_value >= data.energy_generation then
+                    data.energy_bank_value = data.energy_bank_value + energy_produce[k]
+                end
+            end
+        end
+        set_block_whole_data(x, y, z, data)
     end
 end
 

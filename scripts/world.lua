@@ -52,6 +52,22 @@ function on_blocks_tick(tps)
             end
             -- set_block_data(x, y, z, "current_process_time", math.random(data.max_process_time))
             -- set_block_data(x, y, z, "energy_bank_value", math.random(data.energy_bank_max_value))
+        elseif block.name(block.get(x,y,z)):startsWith("electrical_age_lite:generator_hydro") then
+            local doc = Document.new("electrical_age_lite:generator_hydro");
+            local data = get_block_data(x,y,z);
+            local energy_level = data.energy_bank_value;
+            doc["energy_text"].text = energy_level .. "/" .. data.energy_bank_max_value .. " vce"
+            doc["energy_bar"].size = { doc["energy_bar"].size[1], math.floor(data.energy_bank_max_value -
+                data.energy_bank_max_value * (energy_level / data.energy_bank_max_value)) }
+            local generating = data.energy_generation
+            if data.energy_generation > 0 then
+                doc["generating_bar"].visible = true;
+                doc["process_bar"].size = { math.floor(data.max_energy_out *
+                    (generating / data.max_energy_out)),
+                    doc["process_bar"].size[2] }                
+            else
+                doc["generating_bar"].visible = false
+            end
         end
     end
 

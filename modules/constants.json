@@ -4,11 +4,12 @@
   "generators": {
     "hydro": {
       "energy_bank": 0,
-      "energy_produce": [4, 16],
-      "turbine_radius": [3, 4],
+      "energy_produce": [4, 16, 32],
+      "turbine_radius": [2, 3, 4],
       "turbines": [
         "electrical_age_lite:turbine_hydro_wood",
-        "electrical_age_lite:turbine_hydro_iron"
+        "electrical_age_lite:turbine_hydro_iron",
+        "electrical_age_lite:turbine_hydro_nanofiber"
       ]
     },
     "solar": {
@@ -31,11 +32,12 @@
     },
     "wind": {
       "energy_bank": 0,
-      "energy_produce": [4, 16],
-      "turbine_radius": [2, 3],
+      "energy_produce": [4, 16, 32],
+      "turbine_radius": [3, 4, 5],
       "turbines": [
         "electrical_age_lite:turbine_wind_wood",
-        "electrical_age_lite:turbine_wind_iron"
+        "electrical_age_lite:turbine_wind_iron",
+        "electrical_age_lite:turbine_wind_nanofiber"
       ]
     }
   },
@@ -99,6 +101,12 @@
     }
   },
   "data_patterns": {
+    "generator_hydro": {
+      "energy_bank_max_value": 1000,
+      "energy_bank_value": 0,
+      "max_energy_out": 32,
+      "energy_generation": 0
+    },
     "generator_thermo": {
       "energy_bank_max_value": 1000,
       "energy_bank_value": 0,

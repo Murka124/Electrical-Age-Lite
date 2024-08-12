@@ -1,0 +1,6 @@
+{
+  "components": ["electrical_age_lite:turbine_hydro"],
+  "hitbox": [1.1, 1.1, 1.1],
+  "body-type": "static",
+  "blocking": false
+}
