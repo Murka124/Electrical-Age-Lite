@@ -46,10 +46,6 @@ const generateStates = (textures) => {
  * @param {[string, number[]][][]} generated from generateStates()
  */
 const writeModels = function (modid, blockname, generated) {
-  const blockPath = `../${blockname}`;
-
-  if (!fs.existsSync(blockPath)) fs.mkdirSync(blockPath, { recursive: true });
-
   generated.forEach(async (data) => {
     const block = new wireTemplate(modid + ":" + blockname);
     block["model-primitives"].aabbs = data.map((v) => v[1]);
