@@ -24,11 +24,12 @@ function set_block_data(x, y, z, key, value)
 end
 
 function set_block_whole_data(x, y, z, data)
-    list["x"..x.."y"..y.."z"..z].data = data
+    list["x"..x.."y"..y.."z"..z].data = table.clone(data)
 end
 
 function set_block_data_pattern(x, y, z, pattern_name)
-    list["x"..x.."y"..y.."z"..z].data = constants.data_patterns[pattern_name]
+    print(constants.data_patterns[pattern_name], pattern_name)
+    list["x"..x.."y"..y.."z"..z].data = table.clone(constants.data_patterns[pattern_name])
 end
 
 function get_block_data(x, y, z)

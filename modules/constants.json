@@ -106,7 +106,13 @@
       "current_process_time": 0,
       "energy_bar_max_value": 186,
       "process_bar_max_value": 44,
-      "energy_generation": 4
+      "energy_generation": 4,
+      "max_energy_out": 16
+    },
+    "generator_solar": {
+      "energy_bank_max_value": 1,
+      "energy_bank_value": 0,
+      "max_energy_out": 1
     },
     "wire": {
       "energy_transfered": 0,
