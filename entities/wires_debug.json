@@ -1,0 +1,10 @@
+{
+    "components": [
+        "electrical_age_lite:wires_debug"
+    ],
+    "skeleton-name": "base:drop",
+    "hitbox": [0, 0, 0],
+	"save": false,
+	"body-type":"static",
+	"blocking": false
+}

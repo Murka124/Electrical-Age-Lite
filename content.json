@@ -474,6 +474,7 @@
     "ingot_tin"
   ],
   "entities": [
-    "turbine_hydro"
+    "turbine_hydro",
+    "wires_debug"
   ]
 }

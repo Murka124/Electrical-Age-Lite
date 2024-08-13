@@ -133,7 +133,7 @@
       "max_voltage": 32,
       "consumed_voltage": 0,
       "work_voltage": 1,
-      "explode_strength": 1,
+      "explode_strength": 2,
       "max_process_time": 200,
       "current_process_time": 0
     }

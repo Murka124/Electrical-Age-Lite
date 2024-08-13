@@ -10,5 +10,6 @@
 	"script-name": "machine_logic",
 	"emission": [12, 12, 12],
 	"hidden": true,
-	"picking-item": "electrical_age_lite:machine_light.item"
+	"picking-item": "electrical_age_lite:machine_light.item",
+	"shadeless": true
 }

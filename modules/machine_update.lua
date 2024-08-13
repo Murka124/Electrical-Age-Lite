@@ -3,6 +3,7 @@ require "explode_lib:explode"
 
 function machine_give_energy(x, y, z, vce)
     local data = get_block_data(x,y,z)
+    if vce > data.max_voltage then explode(x, y, z, data.explode_strength) return 0 end
     local can_consume_value = data.energy_bank_max_value-data.energy_bank_value
     local consumed = math.max(math.min(vce, can_consume_value), 0)
     data.consumed_voltage = data.consumed_voltage + consumed

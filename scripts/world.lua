@@ -7,6 +7,7 @@ require "electrical_age_lite:table_copy"
 
 local list = {}
 local packid = "electrical_age_lite"
+local WIRES_DEBUG = false
 
 function on_world_open()
     --создаём папку с модом если не создана
@@ -17,17 +18,27 @@ function on_world_open()
     end
     list = json.parse(file.read("world:data/" .. packid .. "/list.json"))
     set_list(list)
+    despawn_debug_entity()
+end
+
+function despawn_debug_entity()
+    for k, v in pairs(entities.get_all()) do
+        if entities.def_name(entities.get_def(v.eid)):startsWith("electrical_age_lite:wires_debug") then
+            entities.get(v.eid):despawn()
+        end
+    end
 end
 
 local gen_upd = require("electrical_age_lite:generator_update")
 function on_blocks_tick(tps)
-    -- print("world tick", get_current_block())
+    despawn_debug_entity()
 
     --обновляем информацию на экране
     --ой щас говнокод будеет...
     local x, y, z, _ = get_current_block()
     if x ~= nil then
-        if block.name(block.get(x, y, z)):startsWith("electrical_age_lite:generator_thermo") then
+        local blockname = block.name(block.get(x,y,z))
+        if blockname ~= nil and blockname:startsWith("electrical_age_lite:generator_thermo") then
             local doc = Document.new("electrical_age_lite:generator_thermo")
             local data = get_block_data(x, y, z)
             local energy_level = data.energy_bank_value
@@ -52,7 +63,7 @@ function on_blocks_tick(tps)
             end
             -- set_block_data(x, y, z, "current_process_time", math.random(data.max_process_time))
             -- set_block_data(x, y, z, "energy_bank_value", math.random(data.energy_bank_max_value))
-        elseif block.name(block.get(x,y,z)):startsWith("electrical_age_lite:generator_hydro") then
+        elseif blockname ~= nil and blockname:startsWith("electrical_age_lite:generator_hydro") then
             local doc = Document.new("electrical_age_lite:generator_hydro");
             local data = get_block_data(x,y,z);
             local energy_level = data.energy_bank_value;
@@ -75,7 +86,8 @@ function on_blocks_tick(tps)
     local generators = { "electrical_age_lite:generator_thermo", "electrical_age_lite:generator_solar" }
     for k, v in pairs(list) do
         for _, generator in pairs(generators) do
-            if v.name:startsWith(generator) then
+            local blockname = block.name(block.get(v.x, v.y, v.z))
+            if blockname ~= nil and blockname:startsWith(generator) and v.name:startsWith(generator) then
                 update_generator(v.x, v.y, v.z)
             end
         end
@@ -85,9 +97,10 @@ function on_blocks_tick(tps)
 
     --начинаем трансфер энергии. снова проходимся по всем генераторам и заставляем их отдавать энергию во все стороны
     for k, v in pairs(list) do
+        local wires = {}            -- {"xXyYzZ" = true}
         for _, generator in pairs(generators) do
-            -- print("\n\n\n\n")
-            if v.name:startsWith(generator) then --проходимся по каждому генератору
+            local blockname = block.name(block.get(v.x, v.y, v.z))
+            if blockname ~= nil and blockname:startsWith(generator) and v.name:startsWith(generator) then --проходимся по каждому генератору
                 local directions = {
                     { 1,  0,  0 },
                     { -1, 0,  0 },
@@ -96,22 +109,25 @@ function on_blocks_tick(tps)
                     { 0,  0,  1 },
                     { 0,  0,  -1 }
                 }
-                local wires = {}            -- {"xXyYzZ = true"}
                 local paths_to_process = {} -- {{1,2,3}, {4,5,6}}
                 local curx, cury, curz = v.x, v.y, v.z
                 local cur_energy = generator_drain_energy(curx, cury, curz, v.data.max_energy_out, false)
+                if cur_energy <= 0 then break end
                 local initial_energy = cur_energy
 
                 function wireFlow(loopx, loopy, loopz)
                     if loopx == nil then return nil end
+                    if cur_energy <= 0 then return nil end
                     for idx, dirtable in pairs(directions) do --перебираем все стороны вокруг текущего блока
                         local blockname = block.name(block.get(loopx + dirtable[1], loopy + dirtable[2],
                             loopz + dirtable[3]))
+                        -- if wires["x" .. (loopx + dirtable[1]) .. "y" .. (loopy + dirtable[2]) .. "z" .. (loopz + dirtable[3])] then return nil end
                         if blockname == nil then return nil end
-                        if blockname:startsWith("electrical_age_lite:wire") and not wires["x" .. loopx + dirtable[1] .. "y" .. loopy + dirtable[2] .. "z" .. loopz + dirtable[3]] then
+                        if blockname:startsWith("electrical_age_lite:wire") and not wires["x" .. (loopx + dirtable[1]) .. "y" .. (loopy + dirtable[2]) .. "z" .. (loopz + dirtable[3])] then
                             paths_to_process[#paths_to_process + 1] = { loopx + dirtable[1], loopy + dirtable[2], loopz +
                             dirtable[3] }
-                            wires["x" .. loopx .. "y" .. loopy .. "z" .. loopz] = true
+                            wires["x" .. loopx + dirtable[1] .. "y" .. loopy + dirtable[2] .. "z" .. loopz + dirtable[3]] = true
+                            if WIRES_DEBUG == true then entities.spawn("electrical_age_lite:wires_debug", {loopx+0.5+dirtable[1], loopy+0.5+dirtable[2], loopz+0.5+dirtable[3]}) end
                             -- print("x"..loopx.."y"..loopy.."z"..loopz.." is a wire!")
                         elseif blockname:startsWith("electrical_age_lite:machine") then
                             -- print("found machine ",loopx+dirtable[1], loopy + dirtable[2], loopz + dirtable[3], cur_energy)
@@ -133,39 +149,13 @@ function on_blocks_tick(tps)
                     end
                 end
                 generator_drain_energy(curx, cury, curz, initial_energy - cur_energy)
-
-                -- for _, dirtable in pairs(directions) do
-                --     if block.name(block.get(curx + dirtable[1], cury + dirtable[2], curz + dirtable[3])):startsWith("electrical_age_lite:wire") then
-                --         while true do -- :skull:
-                --             local path_idx = #current_path + 1
-                --             current_path[path_idx] = {}
-                --             for dirid, dirtable in pairs(directions) do
-                --                 if block.name(block.get(curx + dirtable[1], cury + dirtable[2], curz + dirtable[3])):startsWith("electrical_age_lite:wire") then
-                --                     current_path[path_idx][#current_path[path_idx] + 1] = dirid
-                --                 elseif block.name(block.get(curx + dirtable[1], cury + dirtable[2], curz + dirtable[3])):startsWith("electrical_age_lite:machine") then
-                --                     local energy = generator_drain_energy(v.x, v.y, v.z, 4)
-                --                     energy = machine_give_energy(v.x + dirtable[1], v.y + dirtable[2], v.z + dirtable[3], energy)
-                --                     v.data.energy_bank_value = v.data.energy_bank_value + energy
-                --                 end
-                --             end
-                --             break
-                --         end
-                --     end
-                -- end
-
-
-
-                -- for _, dirtable in pairs(directions) do
-                --     if block.name(block.get(v.x + dirtable[1], v.y + dirtable[2], v.z + dirtable[3])):startsWith("electrical_age_lite:machine_light") then
-
-                --     end
-                -- end
             end
         end
     end
 
     for k, v in pairs(list) do
-        if v.name:startsWith("electrical_age_lite:machine") then
+        local blockname = block.name(block.get(v.x, v.y, v.z))
+        if blockname ~= nil and blockname:startsWith("electrical_age_lite:machine") then
             machine_update(v.x, v.y, v.z)
         end
     end

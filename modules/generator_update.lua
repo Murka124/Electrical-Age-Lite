@@ -24,7 +24,6 @@ function update_generator(x, y, z)
                 end
             end
             if consumed then
-                print(inv_val)
                 if inv_val <= 0 then
                     inventory.set(invid, 0, block.index("core:air"), 0)
                 else
@@ -79,12 +78,13 @@ function generator_drain_energy(x, y, z, vce, change)
     local name = block.name(block.get(x, y, z))
     if name:startsWith("electrical_age_lite:generator") then
         local data = get_block_data(x, y, z)
-        if data.energy_bank_value >= vce then
+        if data.energy_bank_value > 0 then
+            local can_give = math.min(data.energy_bank_value, vce)
             if change then
-                data.energy_bank_value = data.energy_bank_value - vce
+                data.energy_bank_value = data.energy_bank_value - can_give
                 set_block_whole_data(x, y, z, data)
             end
-            return vce
+            return can_give
         end
         return 0
     end
