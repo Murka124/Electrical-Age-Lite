@@ -1,11 +1,4 @@
 {
-	"texture-faces": [
-		"machine_light",
-		"machine_light",
-		"machine_light",
-		"machine_light",
-		"machine_light",
-		"machine_light"
-	],
+	"texture": "machine_light",
 	"script-name": "machine_logic"
 }
