@@ -1,18 +1,26 @@
 function update_generator(x, y, z)
     local name = block.name(block.get(x, y, z))
+
+    -- Посылаем нахуй если не генератор.
+    if not name:startsWith("electrical_age_lite:generator") then return end
+
+    local data = get_block_data(x,y,z);
+
     if name:startsWith("electrical_age_lite:generator_thermo") then
-        local data = get_block_data(x, y, z)
         local invid = inventory.get_block(x, y, z)
         local inv_item, inv_val = inventory.get(invid, 0)
         local consumables = get_constants().generators.thermo.consumables
         local consume_time = get_constants().generators.thermo.consume_time
-        -- print(data, invid, consumables)
+
+        -- Пополнение энергии вплоть до максимума.
         if data.current_process_time > 0 then
             if data.energy_bank_max_value - data.energy_bank_value >= data.energy_generation then
                 data.current_process_time = data.current_process_time - 1
                 data.energy_bank_value = data.energy_bank_value + data.energy_generation
             end
         end
+
+        -- Сбор предмета из слота.
         if data.current_process_time <= 0 then
             local consumed = false
             local consume_id = 0
@@ -34,7 +42,7 @@ function update_generator(x, y, z)
                 end
             end
         end
-        set_block_whole_data(x, y, z, data)
+
     elseif name:startsWith("electrical_age_lite:generator_solar") then
         local time = world.get_day_time()
         if time > 0.25 and time < 0.75 then
@@ -48,13 +56,11 @@ function update_generator(x, y, z)
                 tmp_y = tmp_y + 1
             end
             if can_generate then
-                local data = get_block_data(x, y, z)
                 data.energy_bank_value = 1
-                set_block_whole_data(x, y, z, data)
             end
         end
+
     elseif name:startsWith("electrical_age_lite:generator_hydro") then
-        local data = get_block_data(x, y, z);
         local invid = inventory.get_block(x, y, z);
         local inv_item, inv_val = inventory.get(invid, 0);
 
@@ -69,8 +75,9 @@ function update_generator(x, y, z)
                 end
             end
         end
-        set_block_whole_data(x, y, z, data)
     end
+
+    set_block_whole_data(x,y,z,data);
 end
 
 function generator_drain_energy(x, y, z, vce, change)

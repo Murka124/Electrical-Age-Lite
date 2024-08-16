@@ -1,0 +1,47 @@
+-- Возвращает x, y, z координаты игрока
+player.get_pos(playerid: int) -> number, number, number
+
+-- Устанавливает x, y, z координаты игрока
+player.set_pos(playerid: int, x: number, y: number, z: number)
+
+--Возвращает x, y, z линейной скорости игрока
+player.get_vel(playerid: int) -> number, number, number
+
+--Устанавливает x, y, z линейной скорости игрока
+player.set_vel(playerid: int, x: number, y: number, z: number)
+
+--Возвращает x, y, z вращения камеры (в радианах)
+player.get_rot(playerid: int) -> number, number, number
+
+--Устанавливает x, y вращения камеры (в радианах)
+player.set_rot(playerid: int, x: number, y: number, z: number)
+
+--Возвращает id инвентаря игрока и индекс выбранного слота (от 0 до 9)
+player.get_inventory(playerid: int) -> int, int
+
+--Геттер режима полета
+player.is_flight() -> bool
+
+--Сеттер режима полета
+player.set_flight(bool)
+
+--Геттер noclip режима (выключенная коллизия игрока)
+player.is_noclip() -> bool
+
+--Сеттер noclip режима (выключенная коллизия игрока)
+player.set_noclip(bool)
+
+--Сеттер точки спавна игрока
+player.set_spawnpoint(playerid: int, x: number, y: number, z: number)
+
+--Геттер точки спавна игрока
+player.get_spawnpoint(playerid: int) -> number, number, number
+
+--Возвращает координаты выделенного блока, либо nil
+player.get_selected_block(playerid: int) -> x,y,z
+
+--Возвращает уникальный идентификатор сущности, на которую нацелен игрок
+player.get_selected_entity(playerid: int) -> int
+
+--Возвращает уникальный идентификатор сущности игрока
+player.get_entity(playerid: int) -> int

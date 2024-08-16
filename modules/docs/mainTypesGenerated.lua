@@ -1,0 +1,7 @@
+require "electrical_age_lite:docs/generated/libblock.txt.lua"
+require "electrical_age_lite:docs/generated/libcameras.txt.lua"
+require "electrical_age_lite:docs/generated/libentities.txt.lua"
+require "electrical_age_lite:docs/generated/libmat4.txt.lua"
+require "electrical_age_lite:docs/generated/libplayer.txt.lua"
+require "electrical_age_lite:docs/generated/libquat.txt.lua"
+require "electrical_age_lite:docs/generated/libvecn.txt.lua"
