@@ -1,0 +1,11 @@
+{
+  "runtime.version": "LuaJIT",
+  "diagnostics.disable": [
+    "lowercase-global"
+  ],
+  "workspace": {
+    "library": [
+      "./voxelcore.lua"
+    ]
+  }
+}
