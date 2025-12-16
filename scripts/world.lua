@@ -30,14 +30,14 @@ function despawn_debug_entity()
 end
 
 local gen_upd = require("electrical_age_lite:generator_update")
-function on_blocks_tick(tps)
+function on_world_tick()
     despawn_debug_entity()
 
     --обновляем информацию на экране
     --ой щас говнокод будеет...
     local x, y, z, _ = get_current_block()
     if x ~= nil then
-        local blockname = block.name(block.get(x,y,z))
+        local blockname = block.name(block.get(x, y, z))
         if blockname ~= nil and blockname:startsWith("electrical_age_lite:generator_thermo") then
             local doc = Document.new("electrical_age_lite:generator_thermo")
             local data = get_block_data(x, y, z)
@@ -65,7 +65,7 @@ function on_blocks_tick(tps)
             -- set_block_data(x, y, z, "energy_bank_value", math.random(data.energy_bank_max_value))
         elseif blockname ~= nil and blockname:startsWith("electrical_age_lite:generator_hydro") then
             local doc = Document.new("electrical_age_lite:generator_hydro");
-            local data = get_block_data(x,y,z);
+            local data = get_block_data(x, y, z);
             local energy_level = data.energy_bank_value;
             doc["energy_text"].text = energy_level .. "/" .. data.energy_bank_max_value .. " vce"
             doc["energy_bar"].size = { doc["energy_bar"].size[1], math.floor(data.energy_bank_max_value -
@@ -75,7 +75,7 @@ function on_blocks_tick(tps)
                 doc["generating_bar"].visible = true;
                 doc["process_bar"].size = { math.floor(data.max_energy_out *
                     (generating / data.max_energy_out)),
-                    doc["process_bar"].size[2] }                
+                    doc["process_bar"].size[2] }
             else
                 doc["generating_bar"].visible = false
             end
@@ -97,7 +97,7 @@ function on_blocks_tick(tps)
 
     --начинаем трансфер энергии. снова проходимся по всем генераторам и заставляем их отдавать энергию во все стороны
     for k, v in pairs(list) do
-        local wires = {}            -- {"xXyYzZ" = true}
+        local wires = {} -- {"xXyYzZ" = true}
         for _, generator in pairs(generators) do
             local blockname = block.name(block.get(v.x, v.y, v.z))
             if blockname ~= nil and blockname:startsWith(generator) and v.name:startsWith(generator) then --проходимся по каждому генератору
@@ -127,7 +127,10 @@ function on_blocks_tick(tps)
                             paths_to_process[#paths_to_process + 1] = { loopx + dirtable[1], loopy + dirtable[2], loopz +
                             dirtable[3] }
                             wires["x" .. loopx + dirtable[1] .. "y" .. loopy + dirtable[2] .. "z" .. loopz + dirtable[3]] = true
-                            if WIRES_DEBUG == true then entities.spawn("electrical_age_lite:wires_debug", {loopx+0.5+dirtable[1], loopy+0.5+dirtable[2], loopz+0.5+dirtable[3]}) end
+                            if WIRES_DEBUG == true then
+                                entities.spawn("electrical_age_lite:wires_debug",
+                                    { loopx + 0.5 + dirtable[1], loopy + 0.5 + dirtable[2], loopz + 0.5 + dirtable[3] })
+                            end
                             -- print("x"..loopx.."y"..loopy.."z"..loopz.." is a wire!")
                         elseif blockname:startsWith("electrical_age_lite:machine") then
                             -- print("found machine ",loopx+dirtable[1], loopy + dirtable[2], loopz + dirtable[3], cur_energy)
